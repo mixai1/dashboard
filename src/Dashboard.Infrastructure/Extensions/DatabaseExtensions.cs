@@ -1,4 +1,5 @@
 ﻿using Dashboard.Infrastructure.Data;
+using Dashboard.Infrastructure.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,7 +23,7 @@ public static class DatabaseExtensions
             {
                 if (dbContext is AppDbContext appDbContext && !appDbContext.Sales.Any()) 
                 {
-                    appDbContext.Sales.AddRange([]);
+                    appDbContext.Sales.AddRange(SeedSaleGenerator.GenerateSale());
                     appDbContext.SaveChanges();
                 }
             })

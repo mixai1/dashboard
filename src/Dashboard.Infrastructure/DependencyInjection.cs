@@ -22,21 +22,4 @@ public static class DependencyInjection
 
         return services;
     }
-
-    public static void SeedAsync(AppDbContext context)
-    {
-        if (!context.Sales.Any())
-        {
-            context.Sales.AddRange(
-                new Sale { SaleDateTime = DateTime.UtcNow.AddDays(-2), Amount = 100.50m },
-                new Sale { SaleDateTime = DateTime.UtcNow.AddDays(-1), Amount = 250.00m },
-                new Sale { SaleDateTime = DateTime.UtcNow, Amount = 20.00m },
-                new Sale { SaleDateTime = DateTime.UtcNow.AddDays(-1).AddMinutes(-2), Amount = 240.00m },
-                new Sale { SaleDateTime = DateTime.UtcNow.AddDays(-3), Amount = 250.00m },
-                new Sale { SaleDateTime = DateTime.UtcNow, Amount = 75.25m }
-            );
-
-            context.SaveChanges();
-        }
-    }
 }
