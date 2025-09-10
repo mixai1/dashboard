@@ -1,0 +1,9 @@
+@if (periods.length > 0) {
+    <select [formControl]="control">
+    @for (period of periods; track $index) {
+      <option [value]="$index">{{ period.name }}</option>
+    }
+  </select>
+} @else {
+  <p>Empty state</p>
+}

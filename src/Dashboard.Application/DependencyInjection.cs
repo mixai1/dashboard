@@ -19,5 +19,4 @@ public static class DependencyInjection
             .AddScoped<IMapper, ServiceMapper>()
             .AddScoped<ISaleService, SaleService>();
     }
-
 }

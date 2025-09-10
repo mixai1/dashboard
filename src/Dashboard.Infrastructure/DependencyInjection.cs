@@ -1,5 +1,4 @@
 ﻿using Dashboard.Application.Interfaces;
-using Dashboard.Domain.Entities;
 using Dashboard.Infrastructure.Data;
 using Dashboard.Infrastructure.Extensions;
 using Dashboard.Infrastructure.Repositories;
@@ -13,9 +12,9 @@ public static class DependencyInjection
         this IServiceCollection services,
         string connectionString)
     {
-        services.AddApplicationDbContext<AppDbContext>(connectionString);
-
-        services.AddScoped<ISaleRepository, SaleRepository>();
+        services
+            .AddApplicationDbContext<AppDbContext>(connectionString)
+            .AddScoped<ISaleRepository, SaleRepository>();
 
         using var provider = services.BuildServiceProvider();
         provider.ApplyMigrations<AppDbContext>();
