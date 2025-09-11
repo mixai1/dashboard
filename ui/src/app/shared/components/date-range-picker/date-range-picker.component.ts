@@ -23,21 +23,16 @@ import { DestroyComponent } from '@shared/utils/destroy.component';
 export class DateRangePickerComponent extends DestroyComponent implements OnInit {
   @Input()
   set dateTimeRange(value: DateTimeRange) {
-    this._dateTimeRange = value;
     if (value) {
       this.form.patchValue(
         {
-          from: this.dateTimeLocalToString(this.utcToLocalDate(value.from)),
-          to: this.dateTimeLocalToString(this.utcToLocalDate(value.to)),
+          from: this.dateTimeLocalToString(value.from),
+          to: this.dateTimeLocalToString(value.to),
         },
         { emitEvent: false }
       );
     }
   }
-  get dateTimeRange(): DateTimeRange {
-    return this._dateTimeRange;
-  }
-  private _dateTimeRange!: DateTimeRange;
   @Output() rangeSelected = new EventEmitter<DateTimeRange>();
 
   readonly form = new FormGroup({
@@ -63,9 +58,5 @@ export class DateRangePickerComponent extends DestroyComponent implements OnInit
     const hh = String(date.getHours()).padStart(2, '0');
     const mi = String(date.getMinutes()).padStart(2, '0');
     return `${yyyy}-${mm}-${dd}T${hh}:${mi}`;
-  }
-
-  private utcToLocalDate(utc: Date): Date {
-    return new Date(utc.getTime() - utc.getTimezoneOffset() * 60_000);
   }
 }

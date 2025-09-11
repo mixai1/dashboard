@@ -7,7 +7,7 @@ import { SetDateTimeRange } from './dashboard-filter.actions';
 @State<DashboardFilterStateModel>({
   name: 'dashboardFilter',
   defaults: {
-    dateTimeRange: DEFAULT_PERIODS.day.value,
+    dateTimeRange: DEFAULT_PERIODS.week.value,
   },
 })
 @Injectable()

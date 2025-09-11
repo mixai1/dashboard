@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { PeriodOption } from '@shared/components/period-select/period-select.component';
 import { DEFAULT_PERIODS } from '@shared/constants/date-ranges.const';
-import { fromUtcDateTimeRange, toUctDateTimeRange } from '@shared/utils/date-time.util';
 import { DateTimeRange } from '@models/date-time-range.model';
 
 @Component({
@@ -9,14 +8,10 @@ import { DateTimeRange } from '@models/date-time-range.model';
   standalone: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dashboard-date-filter.component.html',
-  styleUrls: ['./dashboard-date-filter.component.scss'],
+  styleUrl: './dashboard-date-filter.component.scss',
 })
 export class DashboardDateFilterComponent {
-  @Input({
-    required: true,
-    transform: (range: DateTimeRange) => fromUtcDateTimeRange(range),
-  })
-  dateTimeRange!: DateTimeRange;
+  @Input({ required: true }) dateTimeRange!: DateTimeRange;
 
   @Input() periods: PeriodOption[] = Object.values(DEFAULT_PERIODS);
 

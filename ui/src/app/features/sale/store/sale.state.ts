@@ -5,12 +5,13 @@ import { tap } from 'rxjs/operators';
 import { SaleApiService } from '../services/sale-api.service';
 import { SaleStateModel } from './sale.state.model';
 import { GetSales } from './sale.actions';
+import { Observable } from 'rxjs';
+import { SaleModel } from '@models/sale.model';
 
 @State<SaleStateModel>({
   name: 'sales',
   defaults: {
     items: [],
-    loading: false,
   },
 })
 @Injectable()
@@ -20,20 +21,16 @@ export class SaleState {
     return state.items;
   }
 
-  @Selector()
-  static loading(state: SaleStateModel) {
-    return state.loading;
-  }
-
   constructor(private saleApiService: SaleApiService) {}
 
   @Action(GetSales)
-  getSales({ patchState }: StateContext<SaleStateModel>, { dateTimeRange }: GetSales) {
-    patchState({ loading: true });
-
+  getSales(
+    { patchState }: StateContext<SaleStateModel>,
+    { dateTimeRange }: GetSales
+  ): Observable<SaleModel[]> {
     return this.saleApiService.getSalesByDateTimeRange(dateTimeRange).pipe(
       tap((items) => {
-        patchState({ items, loading: false });
+        patchState({ items });
       })
     );
   }

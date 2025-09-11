@@ -1,6 +1,5 @@
 import { Selector } from '@ngxs/store';
 
-import { fromUtcDate } from '@shared/utils/date-time.util';
 import { SaleModel } from '@models/sale.model';
 import { ChartModel } from '@models/chart.model';
 
@@ -11,7 +10,7 @@ export class SaleQuery {
   static mapChartModel(sales: SaleModel[]): ChartModel {
     const grouped: Record<string, SaleModel[]> = {};
     for (const sale of sales) {
-      const dateTime = fromUtcDate(sale.saleDateTime).toLocaleTimeString();
+      const dateTime = new Date(sale.saleDateTime + 'Z').toLocaleDateString();
       if (!grouped[dateTime]) {
         grouped[dateTime] = [];
       }

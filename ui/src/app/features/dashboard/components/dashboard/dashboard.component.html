@@ -5,6 +5,6 @@
   />
 }
 
-
-<!-- <app-sale-chart></app-sale-chart> -->
-
+@if ( charData$ | async; as charData) {
+  <app-sale-chart [chartData]="charData" />
+}
