@@ -1,0 +1,10 @@
+@if (dateTimeRange$ | async; as dateTimeRange) {
+  <app-dashboard-date-filter 
+    [dateTimeRange]="dateTimeRange" 
+    (rangeSelected)="onDateRangeChange($event)"
+  />
+}
+
+
+<!-- <app-sale-chart></app-sale-chart> -->
+

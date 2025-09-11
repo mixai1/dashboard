@@ -1,0 +1,11 @@
+<div class="dashboard-date-filter">
+  <app-period-select
+    [periods]="periods"
+    (periodSelected)="onRangeSelected($event)">
+  </app-period-select>
+
+  <app-date-range-picker
+    [dateTimeRange]="dateTimeRange"
+    (rangeSelected)="onRangeSelected($event)">
+</app-date-range-picker>
+</div>
