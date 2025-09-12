@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ChartModel } from '@models/chart.model';
 import * as echarts from 'echarts';
 
@@ -14,30 +7,22 @@ import * as echarts from 'echarts';
   standalone: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './sale-chart.component.html',
-  styleUrl: './sale-chart.component.scss',
 })
-export class SaleChartComponent implements OnInit {
-  @ViewChild('saleChart', { static: true }) chartContainer!: ElementRef<HTMLDivElement>;
-
-  @Input({ required: true })
-  set chartData(chartData: ChartModel) {
-    this.chart?.setOption({
-      xAxis: { data: chartData.times },
-      series: [
-        { name: 'Sum', data: chartData.amounts },
-        { name: 'Sales', data: chartData.counts },
-      ],
-    });
-  }
-
-  @Input() chartOptions: echarts.EChartsCoreOption = this.getDefaultOptions();
-
-  private chart!: echarts.ECharts;
-
-  ngOnInit(): void {
-    this.chart = echarts.init(this.chartContainer.nativeElement);
-    this.chart.setOption(this.chartOptions);
-  }
+export class SaleChartComponent {
+  @Input({
+    required: true,
+    transform: (value: ChartModel) => {
+      return {
+        xAxis: { data: value.times },
+        series: [
+          { name: 'Sum', data: value.amounts },
+          { name: 'Sales', data: value.counts },
+        ],
+      };
+    },
+  })
+  chartData!: ChartModel;
+  chartOptions: echarts.EChartsCoreOption = this.getDefaultOptions();
 
   private getDefaultOptions(): echarts.EChartsCoreOption {
     return {

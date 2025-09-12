@@ -13,9 +13,9 @@ import { DateTimeRange } from '@models/date-time-range.model';
 export class DashboardDateFilterComponent {
   @Input({ required: true }) dateTimeRange!: DateTimeRange;
 
-  @Input() periods: PeriodOption[] = Object.values(DEFAULT_PERIODS);
-
   @Output() rangeSelected = new EventEmitter<DateTimeRange>();
+
+  readonly periods: PeriodOption[] = Object.values(DEFAULT_PERIODS);
 
   onRangeSelected(range: DateTimeRange): void {
     this.rangeSelected.emit(range);

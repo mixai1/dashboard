@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.Infrastructure.Un
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.WebAPI.IntegrationTests", "tests\IntegrationTests\Dashboard.WebAPI.IntegrationTests\Dashboard.WebAPI.IntegrationTests.csproj", "{D385C1F7-D036-410B-B77E-04244287B7A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard.WebAPI.UnitTests", "tests\UnitTests\Dashboard.WebAPI.UnitTests\Dashboard.WebAPI.UnitTests.csproj", "{F6B3B5A1-ED95-44D3-A36B-627D4C7F97FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{D385C1F7-D036-410B-B77E-04244287B7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D385C1F7-D036-410B-B77E-04244287B7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D385C1F7-D036-410B-B77E-04244287B7A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6B3B5A1-ED95-44D3-A36B-627D4C7F97FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6B3B5A1-ED95-44D3-A36B-627D4C7F97FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6B3B5A1-ED95-44D3-A36B-627D4C7F97FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6B3B5A1-ED95-44D3-A36B-627D4C7F97FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

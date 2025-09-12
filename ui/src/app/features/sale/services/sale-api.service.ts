@@ -11,7 +11,7 @@ export class SaleApiService extends ApiService {
   getSalesByDateTimeRange(dateRange: DateTimeRange): Observable<SaleModel[]> {
     return this.httpGet(
       `${dateRange.from.toISOString()}/${dateRange.to.toISOString()}`,
-      (x: Partial<SaleModel>) => new SaleModel(x)
+      (x: SaleModel) => new SaleModel(x)
     );
   }
 }

@@ -23,15 +23,13 @@ import { DestroyComponent } from '@shared/utils/destroy.component';
 export class DateRangePickerComponent extends DestroyComponent implements OnInit {
   @Input()
   set dateTimeRange(value: DateTimeRange) {
-    if (value) {
-      this.form.patchValue(
-        {
-          from: this.dateTimeLocalToString(value.from),
-          to: this.dateTimeLocalToString(value.to),
-        },
-        { emitEvent: false }
-      );
-    }
+    this.form.patchValue(
+      {
+        from: this.dateTimeLocalToString(value.from),
+        to: this.dateTimeLocalToString(value.to),
+      },
+      { emitEvent: false }
+    );
   }
   @Output() rangeSelected = new EventEmitter<DateTimeRange>();
 

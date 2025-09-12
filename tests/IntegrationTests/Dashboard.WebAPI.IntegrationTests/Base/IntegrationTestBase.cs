@@ -41,6 +41,7 @@ public abstract class IntegrationTestBase
 
         Client = Factory.CreateClient();
     } 
+
     private string GetConnectionString()
     {
         var contentRoot = AppContext.BaseDirectory;
