@@ -1,5 +1,6 @@
 using Dashboard.Application;
 using Dashboard.Infrastructure;
+using Microsoft.Extensions.FileProviders;
 
 namespace Dashboard.WebAPI
 {
@@ -15,8 +16,14 @@ namespace Dashboard.WebAPI
             builder.Services.AddControllers();
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            app.UseStaticFiles();
+
             app.MapControllers();
+            var browserPath = Path.Combine(app.Environment.WebRootPath, "browser");
+            app.MapFallbackToFile("index.html", new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(browserPath)
+            });
             app.Run();
         }
     }

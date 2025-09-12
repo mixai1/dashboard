@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "../src/Dashboard.WebAPI/wwwroot",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
