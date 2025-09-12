@@ -14,7 +14,6 @@ public class SaleService : ISaleService
 
     public Task<List<SaleModel>> GetByDateTimeRangeAsync(DateTime from, DateTime to, CancellationToken cancellationToken)
     {
-        ArgumentOutOfRangeException.ThrowIfGreaterThan(from, to);
         return _saleRepository.GetByDateTimeRangeAsync(from, to, cancellationToken);
     }
 }

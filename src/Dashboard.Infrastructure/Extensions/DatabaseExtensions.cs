@@ -7,26 +7,20 @@ namespace Dashboard.Infrastructure.Extensions;
 
 public static class DatabaseExtensions
 {
-    public static IServiceCollection AddApplicationDbContext<T>(this IServiceCollection services,  string connectionString) where T : DbContext
+    public static IServiceCollection AddApplicationDbContext<T>(this IServiceCollection services, string connectionString) where T : DbContext
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(nameof(connectionString));
         return services.AddDbContext<T>(options =>
-            options.UseSqlServer(connectionString, option =>
-            {
-                option.EnableRetryOnFailure(
-                    maxRetryCount: 5,
-                    maxRetryDelay: TimeSpan.FromSeconds(10),
-                    errorNumbersToAdd: null
-                );
-            })
-            .UseSeeding((dbContext, _) =>
-            {
-                if (dbContext is AppDbContext appDbContext && !appDbContext.Sales.Any()) 
+            options
+                .UseSqlServer(connectionString)
+                .UseSeeding((dbContext, _) =>
                 {
-                    appDbContext.Sales.AddRange(SeedSaleGenerator.GenerateSale());
-                    appDbContext.SaveChanges();
-                }
-            })
+                    if (dbContext is AppDbContext appDbContext && !appDbContext.Sales.Any())
+                    {
+                        appDbContext.Sales.AddRange(SeedSaleGenerator.GenerateSale());
+                        appDbContext.SaveChanges();
+                    }
+                })
         );
     }
 

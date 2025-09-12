@@ -19,7 +19,7 @@ public class SaleRepository : ISaleRepository
     {
         return _dbContext.Sales
             .Where(s => s.SaleDateTime >= from && s.SaleDateTime <= to)
-            .OrderByDescending(s => s.SaleDateTime)
+            .OrderBy(s => s.SaleDateTime)
             .ProjectToType<SaleModel>()
             .ToListAsync(cancellationToken);
     }

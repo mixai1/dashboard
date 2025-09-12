@@ -13,10 +13,10 @@ public class SaleController : ControllerBase
     {
         _saleService = saleService;
     }
-
+     
     [HttpGet("{from}/{to}")]
-    public async Task<IActionResult> GetByDateTimeRange(DateTime from, DateTime to, CancellationToken сancellationToken)
+    public async Task<IActionResult> GetByDateTimeRange(DateTime from, DateTime to, CancellationToken cancellationToken)
     {
-        return Ok(await _saleService.GetByDateTimeRangeAsync(from, to, сancellationToken));
+        return Ok(await _saleService.GetByDateTimeRangeAsync(from, to, cancellationToken));
     }
 }
