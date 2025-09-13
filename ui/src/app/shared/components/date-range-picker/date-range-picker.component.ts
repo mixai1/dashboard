@@ -11,7 +11,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { distinctUntilChanged } from 'rxjs/operators';
 
 import { DateTimeRange } from '@models/date-time-range.model';
-import { DestroyComponent } from '@shared/utils/destroy.component';
+import { AutoUnsubscribeComponent } from '@shared/utils/destroy.component';
 
 @Component({
   selector: 'app-date-range-picker',
@@ -20,7 +20,7 @@ import { DestroyComponent } from '@shared/utils/destroy.component';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './date-range-picker.component.html',
 })
-export class DateRangePickerComponent extends DestroyComponent implements OnInit {
+export class DateRangePickerComponent extends AutoUnsubscribeComponent implements OnInit {
   @Input()
   set dateTimeRange(value: DateTimeRange) {
     this.form.patchValue(
@@ -31,6 +31,7 @@ export class DateRangePickerComponent extends DestroyComponent implements OnInit
       { emitEvent: false }
     );
   }
+
   @Output() rangeSelected = new EventEmitter<DateTimeRange>();
 
   readonly form = new FormGroup({

@@ -8,6 +8,8 @@ import { DEFAULT_PERIODS } from '@shared/constants/date-ranges.const';
 
 describe('Resolver: dashboardResolver', () => {
   let storeMock: jasmine.SpyObj<Store>;
+  const from = new Date('2024-01-01T00:00:00Z');
+  const to = new Date('2024-01-07T23:59:00Z');
 
   beforeEach(() => {
     initSpies();
@@ -22,16 +24,18 @@ describe('Resolver: dashboardResolver', () => {
       await dashboardResolver({} as any, {} as any);
     });
 
-    const expectedRange = DEFAULT_PERIODS.week.value;
-
     expect(storeMock.dispatch).toHaveBeenCalledWith([
-      new SetDateTimeRange(expectedRange),
-      new GetSales(expectedRange),
+      new SetDateTimeRange({ from, to }),
+      new GetSales({ from, to }),
     ]);
   });
 
   function initSpies(): void {
     storeMock = jasmine.createSpyObj<Store>('Store', ['dispatch']);
     storeMock.dispatch.and.returnValue(of());
+    spyOnProperty(DEFAULT_PERIODS, 'week', 'get').and.returnValue({
+      name: 'Week',
+      value: { from, to },
+    });
   }
 });
