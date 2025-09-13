@@ -15,14 +15,15 @@ export class SaleChartComponent {
       return {
         xAxis: { data: value.times },
         series: [
-          { name: 'Sum', data: value.amounts },
-          { name: 'Sales', data: value.counts },
+          { data: value.amounts },
+          { data: value.counts },
         ],
       };
     },
   })
   chartData!: ChartModel;
-  chartOptions: echarts.EChartsCoreOption = this.getDefaultOptions();
+
+  readonly chartOptions: echarts.EChartsCoreOption = this.getDefaultOptions();
 
   private getDefaultOptions(): echarts.EChartsCoreOption {
     return {
