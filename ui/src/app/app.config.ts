@@ -11,7 +11,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
     provideRouter(routes),
-    importProvidersFrom(NgxsModule.forRoot()),
+    importProvidersFrom(NgxsModule.forRoot([])),
     { provide: API_HOST_URL, useValue: 'http://localhost:5000' },
   ],
 };

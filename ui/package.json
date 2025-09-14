@@ -28,6 +28,7 @@
     "@angular/forms": "^20.2.0",
     "@angular/platform-browser": "^20.2.0",
     "@angular/router": "^20.2.0",
+    "@microsoft/signalr": "^9.0.6",
     "@ngxs/store": "^20.1.0",
     "echarts": "^6.0.0",
     "rxjs": "~7.8.0",

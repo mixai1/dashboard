@@ -1,7 +1,11 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './features/dashboard/components/dashboard/dashboard.component';
-import { dashboardResolver } from './features/dashboard/resolvers/dashboard.resolver';
+import { APP_ROUTES } from '@shared/constants/app-routes.const';
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent, resolve: { dashboard: dashboardResolver }}
+  {
+    path: APP_ROUTES.Dashboard,
+    loadChildren: () =>
+      import('./features/dashboard/dashboard.module').then((m) => m.DashboardModule),
+  },
+  { path: '**', redirectTo: APP_ROUTES.Dashboard },
 ];

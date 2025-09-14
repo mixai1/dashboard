@@ -17,6 +17,7 @@ public static class DependencyInjection
         return services
             .AddSingleton(config)
             .AddScoped<IMapper, ServiceMapper>()
-            .AddScoped<ISaleService, SaleService>();
+            .AddScoped<ISaleService, SaleService>()
+            .AddScoped<ISaleMonitoringService, SaleMonitoringService>();
     }
 }

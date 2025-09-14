@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dashboard.Application\Dashboard.Application.csproj" />
+    <ProjectReference Include="..\Dashboard.Realtime\Dashboard.Realtime.csproj" />
   </ItemGroup>
 
 </Project>

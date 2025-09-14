@@ -15,6 +15,11 @@ public class SaleRepository : ISaleRepository
         _dbContext = dbContext;
     }
 
+    public Task<bool> AnyByDateTimeRangeAsync(DateTime from, DateTime to, CancellationToken cancellationToken)
+    {
+        return _dbContext.Sales.Where(s => s.SaleDateTime >= from && s.SaleDateTime <= to).AnyAsync();
+    }
+
     public Task<List<SaleModel>> GetByDateTimeRangeAsync(DateTime from, DateTime to, CancellationToken cancellationToken)
     {
         return _dbContext.Sales

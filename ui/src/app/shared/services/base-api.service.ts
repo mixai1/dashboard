@@ -1,9 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { API_HOST_URL } from 'src/app/app.config';
 
-export abstract class ApiService {
+@Injectable()
+export abstract class BaseApiService {
   private readonly http = inject(HttpClient);
   private readonly apiHostUrl = inject(API_HOST_URL);
   protected apiRelativePath = 'api';

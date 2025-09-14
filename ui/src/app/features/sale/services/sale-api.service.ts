@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { DateTimeRange } from '@models/date-time-range.model';
 import { SaleModel } from '@models/sale.model';
-import { ApiService } from '@shared/utils/api.service';
+import { BaseApiService } from '@shared/services/base-api.service';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class SaleApiService extends ApiService {
+export class SaleApiService extends BaseApiService {
   protected override endpoint = 'sale';
 
   getSalesByDateTimeRange(dateRange: DateTimeRange): Observable<SaleModel[]> {

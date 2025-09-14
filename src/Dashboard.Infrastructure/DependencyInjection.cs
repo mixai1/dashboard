@@ -2,6 +2,7 @@
 using Dashboard.Infrastructure.Data;
 using Dashboard.Infrastructure.Extensions;
 using Dashboard.Infrastructure.Repositories;
+using Dashboard.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Dashboard.Infrastructure;
@@ -14,7 +15,8 @@ public static class DependencyInjection
     {
         services
             .AddApplicationDbContext<AppDbContext>(connectionString)
-            .AddScoped<ISaleRepository, SaleRepository>();
+            .AddScoped<ISaleRepository, SaleRepository>()
+            .AddScoped<ISaleNotifierService, SaleNotifierService>(); 
 
         using var provider = services.BuildServiceProvider();
         provider.ApplyMigrations<AppDbContext>();
