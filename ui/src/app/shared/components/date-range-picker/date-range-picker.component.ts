@@ -11,7 +11,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { distinctUntilChanged } from 'rxjs/operators';
 
 import { DateTimeRange } from '@models/date-time-range.model';
-import { AutoUnsubscribeComponent } from '@shared/utils/destroy.component';
+import { AutoUnsubscribeComponent } from '@shared/utils/auto-unsubscribe.component';
 
 @Component({
   selector: 'app-date-range-picker',

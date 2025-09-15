@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 import { DateTimeRange } from '@models/date-time-range.model';
-import { AutoUnsubscribeComponent } from '@shared/utils/destroy.component';
+import { AutoUnsubscribeComponent } from '@shared/utils/auto-unsubscribe.component';
 
 export interface PeriodOption {
   name: string;

@@ -5,8 +5,8 @@ namespace Dashboard.WebAPI.Hosted;
 public class SalePollingWorker : BackgroundService
 {
     private readonly IServiceScopeFactory _scopeFactory;
-    private DateTime _lastCheck = DateTime.UtcNow;
     private readonly TimeSpan _intervalCheck = TimeSpan.FromMinutes(10);
+    private DateTime _lastCheck = DateTime.UtcNow;
 
     public SalePollingWorker(IServiceScopeFactory scopeFactory)
     {

@@ -40,7 +40,13 @@ public abstract class IntegrationTestBase
         }
 
         Client = Factory.CreateClient();
-    } 
+    }
+
+    [TestCleanup]
+    public void Cleanup()
+    {
+        Factory.Dispose();
+    }
 
     private string GetConnectionString()
     {

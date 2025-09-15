@@ -4,7 +4,9 @@ import { of } from 'rxjs';
 import { SaleApiService } from './sale-api.service';
 import { provideHttpClient } from '@angular/common/http';
 import { API_HOST_URL } from 'src/app/app.config';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 class TestSaleApiService extends SaleApiService {
   public override httpGet = jasmine.createSpy('httpGet');
 }

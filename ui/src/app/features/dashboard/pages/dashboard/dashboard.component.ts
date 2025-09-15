@@ -4,7 +4,7 @@ import { filter, Observable, withLatestFrom } from 'rxjs';
 
 import { DateTimeRange } from '@models/date-time-range.model';
 import { ChartModel } from '@models/chart.model';
-import { AutoUnsubscribeComponent } from '@shared/utils/destroy.component';
+import { AutoUnsubscribeComponent } from '@shared/utils/auto-unsubscribe.component';
 
 import { DashboardFilterState } from '../../store/dashboard-filter.state';
 import { SetDateTimeRange } from '../../store/dashboard-filter.actions';
@@ -26,6 +26,7 @@ export class DashboardComponent extends AutoUnsubscribeComponent implements OnIn
   readonly dateTimeRange$: Observable<DateTimeRange> = this.store.select(
     DashboardFilterState.dateTimeRange
   );
+
   readonly charData$: Observable<ChartModel> = this.store.select(SaleState.mapChartModel);
 
   ngOnInit(): void {

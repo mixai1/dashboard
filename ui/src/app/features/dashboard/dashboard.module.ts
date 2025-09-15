@@ -9,7 +9,7 @@ import { DateRangePickerComponent } from '@shared/components/date-range-picker/d
 import { DashboardDateFilterComponent } from './components/dashboard-date-filter/dashboard-date-filter.component';
 import { DashboardFilterState } from './store/dashboard-filter.state';
 import { SaleModule } from '../sale/sale.module';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { dashboardResolver } from './resolvers/dashboard.resolver';
 
 const routes: Routes = [
