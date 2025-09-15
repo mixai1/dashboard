@@ -33,8 +33,8 @@ describe('Resolver: dashboardResolver', () => {
   function initSpies(): void {
     storeMock = jasmine.createSpyObj<Store>('Store', ['dispatch']);
     storeMock.dispatch.and.returnValue(of());
-    spyOnProperty(DEFAULT_PERIODS, 'week', 'get').and.returnValue({
-      name: 'Week',
+    spyOnProperty(DEFAULT_PERIODS, 'day', 'get').and.returnValue({
+      name: 'day',
       value: { from, to },
     });
   }
