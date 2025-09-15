@@ -1,11 +1,12 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { patch } from '@ngxs/store/operators';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { SaleApiService } from '../services/sale-api.service';
 import { SaleStateModel } from './sale.state.model';
-import { GetSales } from './sale.actions';
+import { FilterSales, LoadSales } from './sale.actions';
 import { SaleModel } from '@models/sale.model';
 import { ChartModel } from '@models/chart.model';
 
@@ -18,8 +19,8 @@ import { ChartModel } from '@models/chart.model';
 @Injectable()
 export class SaleState {
   @Selector()
-  static getItems(state: SaleStateModel) {
-    return state.items;
+  static getItems({ items }: SaleStateModel) {
+    return items;
   }
 
   @Selector()
@@ -55,14 +56,29 @@ export class SaleState {
 
   constructor(private saleApiService: SaleApiService) {}
 
-  @Action(GetSales)
-  getSales(
+  @Action(LoadSales)
+  loadSales(
     { patchState }: StateContext<SaleStateModel>,
-    { dateTimeRange }: GetSales
+    { dateTimeRange }: LoadSales
   ): Observable<SaleModel[]> {
     return this.saleApiService.getSalesByDateTimeRange(dateTimeRange).pipe(
       tap((items) => {
         patchState({ items });
+      })
+    );
+  }
+
+  @Action(FilterSales)
+  filterSales(
+    { setState, getState }: StateContext<SaleStateModel>,
+    { dateTimeRange }: FilterSales
+  ) {
+    setState(
+      patch({
+        items: getState().items.filter((sale) => {
+          const date = new Date(sale.saleDateTime);
+          return date >= new Date(dateTimeRange.from) && date <= new Date(dateTimeRange.to);
+        }),
       })
     );
   }

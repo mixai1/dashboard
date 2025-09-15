@@ -8,7 +8,7 @@ import { AutoUnsubscribeComponent } from '@shared/utils/auto-unsubscribe.compone
 
 import { DashboardFilterState } from '../../store/dashboard-filter.state';
 import { SetDateTimeRange } from '../../store/dashboard-filter.actions';
-import { GetSales } from 'src/app/features/sale/store/sale.actions';
+import { FilterSales, LoadSales } from 'src/app/features/sale/store/sale.actions';
 import { SaleState } from 'src/app/features/sale/store/sale.state';
 import { SaleHubService } from 'src/app/features/sale/services/sale-hub.service';
 
@@ -33,25 +33,33 @@ export class DashboardComponent extends AutoUnsubscribeComponent implements OnIn
     this.hub.connect();
 
     this.hub
-      .getSeleUpdated()
+      .getSaleDateRangeUpdated()
       .pipe(
         withLatestFrom(this.dateTimeRange$),
-        filter(([updated, selected]) => {
-          return (
-            new Date(updated.to) >= new Date(selected.from) &&
-            new Date(updated.from) <= new Date(selected.to)
-          );
-        }),
+        filter(([updated, selected]) => this.isDateRangeWithin(updated, selected)),
         this.autoDestroy()
       )
-      .subscribe(([_, selected]) => this.updateDashboard(selected));
+      .subscribe(([_, selected]) =>
+        this.store.dispatch([new SetDateTimeRange(selected), new LoadSales(selected)])
+      );
   }
 
   onDateRangeChange(dateTimeRange: DateTimeRange): void {
-    this.updateDashboard(dateTimeRange);
+    const currentRange = this.store.selectSnapshot(DashboardFilterState.dateTimeRange);
+    const actions = [new SetDateTimeRange(dateTimeRange)];
+    const isIncludes = this.isDateRangeWithin(dateTimeRange, currentRange);
+    isIncludes
+      ? actions.push(new FilterSales(dateTimeRange))
+      : actions.push(new LoadSales(dateTimeRange));
+    this.store.dispatch(actions);
   }
 
-  private updateDashboard(dateTimeRange: DateTimeRange): void {
-    this.store.dispatch([new SetDateTimeRange(dateTimeRange), new GetSales(dateTimeRange)]);
+  private isDateRangeWithin(updated: DateTimeRange, selected: DateTimeRange): boolean {
+    return (
+      updated &&
+      selected &&
+      new Date(updated.from) >= new Date(selected.from) &&
+      new Date(updated.to) <= new Date(selected.to)
+    );
   }
 }

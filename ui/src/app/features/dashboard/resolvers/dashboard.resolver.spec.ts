@@ -3,7 +3,7 @@ import { Store } from '@ngxs/store';
 import { of } from 'rxjs';
 import { dashboardResolver } from './dashboard.resolver';
 import { SetDateTimeRange } from '../store/dashboard-filter.actions';
-import { GetSales } from '../../sale/store/sale.actions';
+import { LoadSales } from '../../sale/store/sale.actions';
 import { DEFAULT_PERIODS } from '@shared/constants/date-ranges.const';
 
 describe('Resolver: dashboardResolver', () => {
@@ -19,14 +19,14 @@ describe('Resolver: dashboardResolver', () => {
     });
   });
 
-  it('should dispatch SetDateTimeRange and GetSales', async () => {
+  it('should dispatch SetDateTimeRange and LoadSales', async () => {
     await TestBed.runInInjectionContext(async () => {
       await dashboardResolver({} as any, {} as any);
     });
 
     expect(storeMock.dispatch).toHaveBeenCalledWith([
       new SetDateTimeRange({ from, to }),
-      new GetSales({ from, to }),
+      new LoadSales({ from, to }),
     ]);
   });
 

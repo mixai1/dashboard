@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 import { DashboardFilterState } from './dashboard-filter.state';
-import { DashboardFilterStateModel } from './dashboard-filter.state.model';
 import { SetDateTimeRange } from './dashboard-filter.actions';
 import { DateTimeRange } from '@models/date-time-range.model';
 
@@ -18,7 +17,7 @@ describe('State: DashboardFilterState', () => {
   describe('Selectors:', () => {
     it('dateTimeRange should return dateTimeRange', () => {
       const mockRange: DateTimeRange = { from: new Date(), to: new Date() };
-      store.reset({ dashboardFilter: { dateTimeRange: mockRange } as DashboardFilterStateModel });
+      store.reset({ dashboardFilter: { dateTimeRange: mockRange } });
 
       const result = store.selectSnapshot(DashboardFilterState.dateTimeRange);
 

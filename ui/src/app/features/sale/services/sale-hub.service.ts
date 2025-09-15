@@ -18,7 +18,7 @@ export class SaleHubService extends BaseHubService<SaleHubEvent> {
     this.saleUpdated$ = this.on('saleUpdated').pipe(shareReplay(1));
   }
 
-  getSeleUpdated(): Observable<DateTimeRange> {
+  getSaleDateRangeUpdated(): Observable<DateTimeRange> {
     return this.saleUpdated$;
   }
 }

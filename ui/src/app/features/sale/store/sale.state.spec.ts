@@ -5,8 +5,8 @@ import { SaleState } from './sale.state';
 import { SaleApiService } from '../services/sale-api.service';
 import { SaleStateModel } from './sale.state.model';
 import { SaleModel } from '@models/sale.model';
-import { ChartModel } from '@models/chart.model';
-import { GetSales } from './sale.actions';
+import { FilterSales, LoadSales } from './sale.actions';
+import { DateTimeRange } from '@models/date-time-range.model';
 
 describe('State: SaleState', () => {
   let store: Store;
@@ -26,9 +26,9 @@ describe('State: SaleState', () => {
   describe('Selectors:', () => {
     it('getItems: should return items', () => {
       const mockItems: SaleModel[] = [
-        { saleDateTime: '2025-09-13T10:00:00', amount: 100, count: 1 } as any,
+        { saleDateTime: new Date('2025-09-13T10:00:00'), amount: 100 },
       ];
-      store.reset({ sales: { items: mockItems } as SaleStateModel });
+      store.reset({ sales: { items: mockItems }});
 
       const result = store.selectSnapshot(SaleState.getItems);
 
@@ -37,12 +37,12 @@ describe('State: SaleState', () => {
 
     it('mapChartModel: should return saleModel', () => {
       const mockItems: SaleModel[] = [
-        { saleDateTime: '2025-09-13T10:00:00', amount: 100, count: 1 } as any,
-        { saleDateTime: '2025-09-13T12:00:00', amount: 50, count: 1 } as any,
-        { saleDateTime: '2025-09-14T09:00:00', amount: 200, count: 1 } as any,
+        { saleDateTime: new Date('2025-09-13T10:00:00'), amount: 100 },
+        { saleDateTime: new Date('2025-09-13T12:00:00'), amount: 50 },
+        { saleDateTime: new Date('2025-09-14T09:00:00'), amount: 200 },
       ];
-      store.reset({ sales: { items: mockItems } as SaleStateModel });
-      const result: ChartModel = store.selectSnapshot(SaleState.mapChartModel);
+      store.reset({ sales: { items: mockItems }});
+      const result = store.selectSnapshot(SaleState.mapChartModel);
 
       expect(result.times.length).toBe(2);
       expect(result.amounts).toContain(150);
@@ -61,19 +61,39 @@ describe('State: SaleState', () => {
   });
 
   describe('Actions:', () => {
-    it('GetSales should call getSalesByDateTimeRange and patch state', (done) => {
-      const mockRange = { from: new Date(), to: new Date() };
+    it('LoadSales should call getSalesByDateTimeRange and patch state', (done) => {
+      const mockRange: DateTimeRange = { from: new Date(), to: new Date() };
       const mockItems: SaleModel[] = [
-        { saleDateTime: '2025-09-13T10:00:00', amount: 100, count: 1 } as any,
+        { saleDateTime:  new Date('2025-09-13T10:00:00'), amount: 100 },
       ];
       saleApiServiceMock.getSalesByDateTimeRange.and.returnValue(of(mockItems));
 
-      store.dispatch(new GetSales(mockRange)).subscribe(() => {
+      store.dispatch(new LoadSales(mockRange)).subscribe(() => {
         const stateItems = store.selectSnapshot(SaleState.getItems);
         expect(saleApiServiceMock.getSalesByDateTimeRange).toHaveBeenCalledWith(mockRange);
         expect(stateItems).toEqual(mockItems);
         done();
       });
+    });
+
+    it('FilterSales should filter items and set filtred items', () => {
+      const mockItems: SaleModel[] = [
+        { saleDateTime: new Date('2025-09-10T10:00:00'), amount: 100 },
+        { saleDateTime: new Date('2025-09-12T15:00:00'), amount: 200 },
+        { saleDateTime: new Date('2025-09-15T09:00:00'), amount: 300 },
+      ];
+      store.reset({ sales: { items: mockItems }});
+
+      const range: DateTimeRange = {
+        from: new Date('2025-09-11T00:00:00'),
+        to: new Date('2025-09-13T23:59:59'),
+      };
+
+      store.dispatch(new FilterSales(range));
+
+      const filtered = store.selectSnapshot(SaleState.getItems);
+      expect(filtered.length).toBe(1);
+      expect(filtered[0].saleDateTime).toEqual(mockItems[1].saleDateTime);
     });
   });
 

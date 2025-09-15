@@ -5,7 +5,7 @@ import { SaleHubService } from './sale-hub.service';
 import { API_HOST_URL } from 'src/app/app.config';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 
-describe('SaleHubService', () => {
+describe('Service: SaleHubService', () => {
   let service: SaleHubService;
   let connectSpy: jasmine.Spy;
   let hubConnectionMock: jasmine.SpyObj<HubConnection>;
@@ -17,7 +17,6 @@ describe('SaleHubService', () => {
     TestBed.configureTestingModule({
       providers: [SaleHubService, { provide: API_HOST_URL, useValue: 'test' }],
     });
-
     service = TestBed.inject(SaleHubService);
 
     initSpy();
@@ -38,9 +37,9 @@ describe('SaleHubService', () => {
       to: new Date('2025-09-14T12:00:00Z'),
     };
 
-    service.getSeleUpdated().subscribe((value) => {
+    service.getSaleDateRangeUpdated().subscribe((value) => {
       expect(value).toEqual(range);
-      service.getSeleUpdated().subscribe((secondValue) => {
+      service.getSaleDateRangeUpdated().subscribe((secondValue) => {
         expect(secondValue).toEqual(range);
         done();
       });
@@ -72,12 +71,9 @@ describe('SaleHubService', () => {
     );
     spyOn(HubConnectionBuilder.prototype, 'build').and.callFake(builderMockInstance.build);
 
-    connectSpy = spyOn(service as any, 'connect').and.callThrough();
-    onSpy = spyOn(service as any, 'on').and.callFake((eventName: string) => {
-      if (eventName === 'saleUpdated') {
-        return saleUpdatedSubject.asObservable();
-      }
-      return of();
+    connectSpy = spyOn(service, 'connect').and.callThrough();
+    onSpy = spyOn(service, 'on').and.callFake(() => {
+      return saleUpdatedSubject.asObservable();
     });
   }
 });
