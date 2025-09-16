@@ -72,7 +72,7 @@ export class SaleState {
   filterSales(
     { setState, getState }: StateContext<SaleStateModel>,
     { dateTimeRange }: FilterSales
-  ) {
+  ): void {
     setState(
       patch({
         items: getState().items.filter((sale) => {

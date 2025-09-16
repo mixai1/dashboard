@@ -13,15 +13,15 @@ import { SetDateTimeRange } from './dashboard-filter.actions';
 @Injectable()
 export class DashboardFilterState {
   @Selector()
-  static dateTimeRange(state: DashboardFilterStateModel) {
-    return state.dateTimeRange;
+  static dateTimeRange({ dateTimeRange }: DashboardFilterStateModel) {
+    return dateTimeRange;
   }
 
   @Action(SetDateTimeRange)
   setDateTimeRange(
     { patchState }: StateContext<DashboardFilterStateModel>,
     { dateTimeRange }: SetDateTimeRange
-  ) {
+  ): void {
     patchState({ dateTimeRange });
   }
 }
